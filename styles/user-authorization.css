@@ -10,133 +10,310 @@
       box-sizing: border-box;
 }
 
+/* STYLES PARA SA SIGN UP PAGE */
+
 body {
-      width: 100vw;
       height: 100vh;
       display: flex;
-      font-family: "Kdam Thmor Pro", sans-serif;
       align-items: center;
       justify-content: flex-end;
-      overflow: hidden;
-      background: #FFFFFF;
+      font-family: "Kdam Thmor Pro", sans-serif;
 }
 
-.background {
+.sign-up-background {
       position: fixed;
-      z-index: 0;
-      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
 }
 
-.logo{
+.sign-up-logo{
       position: fixed;
-      z-index: 1;
-      top: 40px;
-      left: 40px;
+      top: 60px;
+      left: 80px;
 }
 
-.logo img {
-      width: 60px;
-      display: block;
+.sign-up-logo img {
+      width: 100px;
 }
 
-.card {
-      position: relative;
-      z-index: 1;
-      width: 840px;
+.sign-up-card {
+      width: 800px;
       height: 880px;
-      background-color: rgba(100, 100, 100, 0.5);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      margin-top: 80px;
-      margin-bottom: 80px;      
-      margin-right: 200px;
+      border-radius: 20px;
+      margin: 80px 200px 80px 0px;
       padding: 80px;
+      background-color: rgba(100, 100, 100, 0.5);
+      backdrop-filter: blur(4px);
 }
 
-.card-header {
+.sign-up-card-header {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
 }
 
-.card-header-subtitle {
+.sign-up-card-header-subtitle {
       color: #ADDAFF;
       font-size: 38px;
 }
 
-.card-header-title {
+.sign-up-card-header-title {
       color: #FFFFFF;
       font-size: 46px;
+      margin-bottom: 8px;
 }
 
-.card-form {
+.sign-up-card-form {
       display: flex;
       flex-direction: column;
 }
 
-.form-row {
+.sign-up-form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 24px;
 }
 
-.form-field {
+.sign-up-form-field {
       display: flex;
       flex-direction: column;
 }
 
-.form-field input {
+.sign-up-form-field label {
+      color: #E9E9E9;
+      text-align: right;
+      margin: 24px 6px 6px 0px;
+}
+
+.sign-up-form-field input {
       width: 100%;
-      padding: 16px;
+      color: #686868;
+      font-size: 20px;
+      font-family: "Kdam Thmor Pro", sans-serif;
       outline: none;
       border: none;
       border-radius: 20px;
+      padding: 16px;
       background-color: #FFFFFF;
-      color: #A9A9A9;
-      font-size: 20px;
 }
 
-.form-submit {
+.sign-up-form-submit {
       display: flex;
       justify-content: flex-end;
-      margin-top: 10px;
 }
 
-.form-submit input[type="submit"] {
+.sign-up-form-submit input[type="submit"] {
       width: 200px;
-      padding: 16px;
-      background-color: #ADDAFF;
+      color: #FFFFFF;
+      font-size: 18px;
+      font-family: "Kdam Thmor Pro", sans-serif;
       border: none;
       border-radius: 20px;
-      font-size: 20px;
+      margin: 32px 0px 32px 0px;
+      padding: 16px;
       cursor: pointer;
+      background-color: #ADDAFF;
 }
 
-.form-submit input[type="submit"]:hover {
+.sign-up-form-submit input[type="submit"]:hover {
       background-color: #3894D9;
 }
 
-.card-footer {
+.sign-up-card-footer {
       display: flex;
       flex-direction: column;
 }
 
-.card-footer p {
+.sign-up-card-footer p {
       color: #A9A9A9;
       font-size: 20px;
       text-align: center;
+      margin-top: 16px;
 }
 
-.card-footer a {
+.sign-up-card-footer a {
       color: #ADDAFF;
 }
 
-.card-footer a:hover {
+.sign-up-card-footer a:hover {
+      color: #3894D9;
+}
+
+/* STYLES PARA SA SIGN IN PAGE, ni-reuse ko lang ibang styles galing sa sign up page */
+
+body:has(.sign-in-card) {
+      justify-content: flex-start;
+}
+
+.sign-in-background {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+}
+
+.sign-in-logo{
+      position: fixed;
+      top: 60px;
+      right: 80px;
+}
+
+.sign-in-logo img {
+      width: 100px;
+}
+
+.sign-in-card {
+      width: 800px;
+      height: 880px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 20px;
+      margin: 80px 0px 80px 200px;
+      padding: 80px;
+      background-color: rgba(100, 100, 100, 0.5);
+      backdrop-filter: blur(4px);
+}
+
+.sign-in-card-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+}
+
+.sign-in-card-header-subtitle {
+      color: #ADDAFF;
+      font-size: 38px;
+}
+
+.sign-in-card-header-title {
+      color: #FFFFFF;
+      font-size: 46px;
+      margin-bottom: 16px;
+}
+
+.sign-in-buttons {
+      display: flex;
+      margin: 16px 0px 16px 0px;
+      gap: 20px;
+}
+
+.sign-in-button-user-u, .sign-in-button-admin-u, .sign-in-button-user-a, .sign-in-button-admin-a {
+      flex: 1;
+      color: #FFFFFF;
+      font-size: 16px;
+      font-family: "Kdam Thmor Pro", sans-serif;
+      border: none;
+      border-radius: 20px;
+      padding: 20px;
+      cursor: pointer;
+}
+
+.sign-in-button-user-u, .sign-in-button-admin-a {
+      background-color: #3894D9;
+}
+
+.sign-in-button-admin-u, .sign-in-button-user-a {
+      background-color: #A9A9A9;
+      text-align: center;
+      text-decoration: none;
+}
+
+.sign-in-button-user-u:hover, .sign-in-button-admin-a:hover {
+      background-color: #2478B8;
+}
+
+.sign-in-button-admin-u:hover, .sign-in-button-user-a:hover {
+      background-color: #686868;
+}
+
+.sign-in-form {
+      display: flex;
+      flex-direction: column;
+}
+
+.sign-in-form-field {
+      display: flex;
+      flex-direction: column;
+}
+
+.sign-in-form-field label {
+      color: #E9E9E9;
+      text-align: left;
+      margin: 24px 0px 6px 6px;
+}
+
+.sign-in-form-field input {
+      width: 100%;
+      color: #686868;
+      font-size: 20px;
+      font-family: "Kdam Thmor Pro", sans-serif;
+      outline: none;
+      border: none;
+      border-radius: 20px;
+      padding: 16px;
+      background-color: #FFFFFF;
+}
+
+.sign-in-form-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+      gap: 16px;
+}
+
+.sign-in-form-actions input[type="submit"] {
+      width: 200px;
+      color: #FFFFFF;
+      font-size: 18px;
+      font-family: "Kdam Thmor Pro", sans-serif;
+      border: none;
+      border-radius: 20px;
+      margin: 32px 0px 32px 0px;
+      padding: 16px;
+      cursor: pointer;
+      background-color: #ADDAFF;
+}
+
+.sign-in-form-actions input[type="submit"]:hover {
+      background-color: #3894D9;
+}
+
+.sign-in-form-actions p {
+      color: #ADDAFF;
+      font-size: 16px;
+      text-decoration: underline;
+      margin: -90px 6px 0px 0px;
+      cursor: pointer;
+}
+
+.sign-in-form-actions p:hover {
+      color: #3894D9;
+}
+
+.sign-in-card-footer {
+      display: flex;
+      flex-direction: column;
+}
+
+.sign-in-card-footer p {
+      color: #A9A9A9;
+      font-size: 20px;
+      text-align: center;
+      margin-top: 16px;
+}
+
+.sign-in-card-footer a {
+      color: #ADDAFF;
+}
+
+.sign-in-card-footer a:hover {
       color: #3894D9;
 }

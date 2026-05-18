@@ -191,11 +191,38 @@ body {
       padding-top: 8px;
 }
 
-.about-us-who-we-are {grid-column: 1; grid-row: 2; align-self: stretch; height: 90%}
-.about-us-left-photo {grid-column: 1; grid-row: 3; align-self: stretch; height: 90%}
-.about-us-center-photo {grid-column: 2; grid-row: 2 / 4;}
-.about-us-right-photo {grid-column: 3; grid-row: 2; align-self: stretch; height: 90%}
-.about-us-how-we-work {grid-column: 3; grid-row: 3; align-self: stretch; height: 90%}
+.about-us-who-we-are {
+      grid-column: 1;
+      grid-row: 2;
+      align-self: stretch;
+      height: 90%;
+}
+
+.about-us-left-photo {
+      grid-column: 1;
+      grid-row: 3;
+      align-self: stretch;
+      height: 90%;
+}
+
+.about-us-center-photo {
+      grid-column: 2;
+      grid-row: 2 / 4;
+}
+
+.about-us-right-photo {
+      grid-column: 3;
+      grid-row: 2;
+      align-self: stretch;
+      height: 90%;
+}
+
+.about-us-how-we-work {
+      grid-column: 3;
+      grid-row: 3;
+      align-self: stretch;
+      height: 90%;
+}
 
 .about-us-center-photo img, .about-us-left-photo img, .about-us-right-photo img {
       width: 100%;
@@ -226,8 +253,7 @@ body {
       color: #FFFFFF;
       font-size: 44px;
       text-align: center;
-      margin-bottom: 180px;
-      margin-top: -280px;
+      margin: -280px 0px 180px 0px;
       padding-top: 80px;
 }
 
@@ -262,8 +288,7 @@ body {
 
 .faq-grid1, .faq-grid2, .faq-grid3, .faq-grid4, .faq-grid5, .faq-grid6 {
       border-radius: 20px;
-      margin-top: -120px;
-      margin-bottom: 120px;
+      margin: -120px 0px 120px 0px;
       padding: 40px 60px 40px 60px;
       background-color: #E9E9E9;
 }
@@ -454,7 +479,7 @@ body {
       font-family: "Kdam Thmor Pro", sans-serif;
       border: none;
       border-radius: 20px;
-      padding: 10px 20px;
+      padding: 10px 20px 10px 20px;
       cursor: pointer;
       background-color: #A9A9A9;
 }
@@ -467,8 +492,7 @@ body {
       grid-column: 1 / -1;
       color: #686868;
       text-align: center;
-      margin-left: -260px;
-      margin-right: -260px;
+      margin: 0px -260px 0px -260px;
       padding: 5px;
       background-color: #A9A9A9;
 }
