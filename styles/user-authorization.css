@@ -10,8 +10,6 @@
       box-sizing: border-box;
 }
 
-/* STYLES PARA SA SIGN UP PAGE */
-
 body {
       height: 100vh;
       display: flex;
@@ -143,8 +141,6 @@ body {
 .sign-up-card-footer a:hover {
       color: #3894D9;
 }
-
-/* STYLES PARA SA SIGN IN PAGE, ni-reuse ko lang ibang styles galing sa sign up page */
 
 body:has(.sign-in-card) {
       justify-content: flex-start;

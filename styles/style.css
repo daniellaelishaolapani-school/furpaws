@@ -37,7 +37,7 @@ body {
       display: flex;
       font-size:  20px;
       list-style: none;
-      gap: 110px;
+      gap: 120px;
 }
 
 .header-navbar-links a {
@@ -82,7 +82,8 @@ body {
 
 .hero-title {
       color: #3894D9;
-      font-size: 42px;
+      font-size: 46px;
+      letter-spacing: -2px;
 }
 
 .hero-subtitle {
@@ -168,6 +169,7 @@ body {
       border-radius: 20px;
       padding: 40px;
       background-color: rgba(230, 230, 230, 0.4);
+      backdrop-filter: blur(4px);
 }
 
 #about-us-who-we-are-title, #about-us-how-we-work-title {
@@ -291,6 +293,7 @@ body {
       margin: -120px 0px 120px 0px;
       padding: 40px 60px 40px 60px;
       background-color: #E9E9E9;
+      box-shadow: 4px 4px 8px #A9A9A9;
 }
 
 .faq-question {
