@@ -9,24 +9,29 @@
 
 .header {
   display: flex;
-  margin: 40px;
-  padding: 20px;
-  gap: 15px;     
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px;
+  padding: 10px 20px; /* smaller */
   background: #E6E6E6;
   border-radius: 12px;
 }
 
-.admin-pfp {
+.header-right {
   display: flex;
   align-items: center;
-  gap: 12px; 
+  gap: 10px;
+}
+
+.admin-pfp img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .admin-info {
   display: flex;
   flex-direction: column; 
-  padding: 20px;
-  gap: 15px;     
 }
 
 .role {
@@ -40,13 +45,9 @@
   font-size: 0.7rem;
 }
 
-.logoutbtn {
-  background: none;
-  border: none;
-  color: #e74c3c;
-  cursor: pointer;
-  padding: 5px;
-  magrin-bottom: 10px;
+.logout-btn img {
+  width: 20px;
+  height: 20px;
 }
 
 nav a {
@@ -65,24 +66,24 @@ nav a {
   border-radius: 12px;
   background-color: #989898; 
 }
-.nav-bar a.active { 
-  padding: 20px;
-  gap: 15px;     
-  border-radius: 12px;
-  margin-bottom: 15px;
-  background-color: #1E90FF; 
-}
-
 
 .nav-bar {
   display: flex;
-  gap: 15px; 
-  background-color: #eee;
-  padding: 10px;
-  border-radius: 50px;
-  margin-right: auto;    
-  border-radius: 12px;
-  margin-bottom: 15px;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.nav-bar a {
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: #989898;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav-bar a.active {
+  background: #1E90FF;
 }
 
 .nav-bar a:hover {
