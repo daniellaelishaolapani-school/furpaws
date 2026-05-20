@@ -1,6 +1,6 @@
 @font-face {
       font-family: "Kdam Thmor Pro";
-      src: url("assets/fonts/Kdam Thmor Pro/KdamThmorPro-Regular.ttf") format("truetype");
+      src: url("../assets/fonts/Kdam Thmor Pro/KdamThmorPro-Regular.ttf") format("truetype");
 }
 
 *, *::before, *::after {
