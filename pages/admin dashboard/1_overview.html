@@ -27,43 +27,42 @@
   </div>
 </header>
 
-  <main class="admin-dashboard">
+<div class="dashboard-container">
 
-    <h2>ADMIN DASHBOARD ● ● ●</h2>
+  <h2>ADMIN DASHBOARD ● ● ●</h2>
 
-  <section class="card pet-demographics">
-    <h3>PET DEMOGRAPHICS</h3>
-    <div class="inner-grid">
-      <div class="sub-card">Species Chart</div>
-      <div class="sub-card">Age Group Chart</div>
+  <div class="dashboard-grid">
+    <div class="card">
+      <h3>PET DEMOGRAPHICS</h3>
+
+      <div class="small-card">Species Chart</div>
+      <div class="small-card">Age Group Chart</div>
+      <div class="small-card">Vaccination Status</div>
+      <div class="small-card">Neuter/Spay Status</div>
     </div>
-  </section>
 
-  <section class="card status-section">
-    <div class="sub-card">Vaccination Status</div>
-    <div class="sub-card">Neuter/Spay Status</div>
-  </section>
-
-  <aside class="side-panel">
-    <div class="pending">
-          <h2>Pending Approvals</h2>
-          <ul id="pendings">
-            <nav class="pending-nav">
-              <a href="pages/admin dashboard/4_pending_approvals.html" class="btn-link">See More</a>
-            </nav>
-    </div>
-    <div class="overdue">
-          <h2>Overdue Registrations</h2>
-          <p>Number of Pets with Overdue Registration: <span id="display-count">0</span></p>
-    </div>
-  </aside>
-
-  <footer class="card registration-summary">
-    <h2>PET REGISTRATION SUMMARY</h2>
-        <div class="chart-box">
-            <!-- wala pa -->
+    <div class="right-column">
+      <div class="card">
+        <h3>PENDING APPROVALS</h3>
+        <p>PA-001 | Pet Name</p>
+        <p>PA-002 | Pet Name</p>
       </div>
-  </footer>
+
+      <div class="card">
+        <h3>RENEWAL AND COMPLIANCE</h3>
+        <p>Active Registrations</p>
+        <p>Overdue Registrations</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card summary">
+    <h3>PET REGISTRATION SUMMARY</h3>
+  </div>
+
+</div>
 
   </main>
 
