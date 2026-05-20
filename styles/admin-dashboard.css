@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 @font-face {
   font-family: "Kdam Thmor Pro";
   src: url("../../assets/fonts/KdamThmorPro/KdamThmorPro-Regular.ttf") format("truetype");
@@ -94,7 +90,9 @@ body {
 }
 
 .dashboard-container {
-  padding: 30px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .dashboard-grid {
