@@ -1,21 +1,25 @@
-i@font-face {
+@font-face {
       font-family: "Kdam Thmor Pro";
       src: url("../assets/fonts/Kdam Thmor Pro/KdamThmorPro-Regular.ttf") format("truetype");
 }
 
 .header {
   display: flex;
-  align-items: center;     
   padding: 20px;
-  gap: 15px;               
-}
-
-.nav-bar {
+  gap: 15px;     
   background: #E8E8E8;
-  padding: 15px;
   border-radius: 12px;
   margin-bottom: 15px;
-  margin-right: auto;        
+}
+
+.nav-link { color: #989898; }
+.nav-link.active { color: #4990DF; }
+
+
+.nav-bar {
+  margin-right: auto;    
+  border-radius: 12px;
+  margin-bottom: 15px;
 }
 
 
