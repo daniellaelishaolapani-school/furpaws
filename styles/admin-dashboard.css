@@ -3,55 +3,6 @@
       src: url("../assets/fonts/Kdam Thmor Pro/KdamThmorPro-Regular.ttf") format("truetype");
 }
 
-*, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-}
-
-
-body {
-      font-family: "Kdam Thmor Pro", sans-serif;
-      background: #FFFFFF;
-}
-
-#header {
-      position: relative;
-}
-
-.header-navbar {
-      position: absolute;
-      z-index: 3;
-      top: 0;
-      right: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: left;
-      padding: 50px 260px 0px 260px;
-      gap: 140px;
-      background: transparent;
-}
-
-.header-navbar img {
-    width: 80px;
-}
-
-.header-navbar-links {
-      display: flex;
-      font-size:  20px;
-      list-style: none;
-      gap: 120px;
-}
-
-.header-navbar-links a {
-      color: #FFFFFF;
-      text-decoration: none;
-}
-
-.header-navbar-links a:hover {
-      color: #3894D9;
-}
 .header {
   display: flex;
   align-items: center;     
