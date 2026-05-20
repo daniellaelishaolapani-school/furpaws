@@ -31,7 +31,7 @@ body {
       display: flex;
       align-items: center;
       justify-content: left;
-      padding: 30px 260px 0px 260px;
+      padding: 50px 260px 0px 260px;
       gap: 140px;
       background: transparent;
 }
