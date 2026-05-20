@@ -1,4 +1,4 @@
-@font-face {
+i@font-face {
       font-family: "Kdam Thmor Pro";
       src: url("../assets/fonts/Kdam Thmor Pro/KdamThmorPro-Regular.ttf") format("truetype");
 }
@@ -6,34 +6,38 @@
 .header {
   display: flex;
   align-items: center;     
-  padding: 15px 20px;
+  padding: 20px;
   gap: 15px;               
 }
 
 .nav-bar {
-  margin-left: auto;        
+  background: #E8E8E8;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  margin-right: auto;        
 }
 
 
 body {
-  margin: 0;
+  margin: 20px;
   background: #0f2235;
   color: #cfe6ff;
 }
 
 .dashboard-container {
-  padding: 20px;
+  padding: 30px;
 }
 
 .dashboard-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 20px;
+  gap: 10px;
 }
 
 .card {
   background: #6f8fa8;
-  padding: 20px;
+  padding: 30px;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
@@ -43,6 +47,9 @@ body {
   padding: 15px;
   border-radius: 12px;
   margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 15px; 
 }
 
 .card h3 {
@@ -72,8 +79,8 @@ body {
 nav a {
   margin: 0 10px;
   text-decoration: none;
-  background: #bfbfbf;
+  background: #E8E8E8;
   padding: 8px 15px;
   border-radius: 15px;
-  color: black;
+  color: white;
 }
