@@ -9,15 +9,30 @@
 
 .header {
   display: flex;
+  margin: 40px;
   padding: 20px;
   gap: 15px;     
   background: #E8E8E8;
   border-radius: 12px;
-  margin-bottom: 15px;
 }
 
-.nav-link { color: #989898; }
-.nav-link.active { color: #4990DF; }
+nav a {
+  color: white;
+}
+
+.nav-link { 
+  padding: 20px;
+  gap: 15px;     
+  border-radius: 12px;
+  background: #989898; 
+}
+.nav-link.active { 
+  padding: 20px;
+  gap: 15px;     
+  border-radius: 12px;
+  margin-bottom: 15px;
+  background: #4990DF; 
+}
 
 
 .nav-bar {
@@ -75,6 +90,3 @@ body {
   margin-top: 20px;
 }
 
-nav a {
-  color: white;
-}
