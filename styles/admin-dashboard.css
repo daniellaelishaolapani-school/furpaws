@@ -1,6 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
 @font-face {
       font-family: "Kdam Thmor Pro";
-      src: url("../assets/fonts/Kdam Thmor Pro/KdamThmorPro-Regular.ttf") format("truetype");
+      src: url("../../assets/fonts/Kdam Thmor Pro/KdamThmorPro-Regular.ttf") format("truetype");
 }
 
 .header {
@@ -71,20 +75,6 @@ body {
   margin-top: 20px;
 }
 
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 25px;
-  background: #d9d9d9;
-  border-radius: 20px;
-  margin: 10px;
-}
-
 nav a {
-  margin: 0 10px;
-  text-decoration: none;
-  background: #E8E8E8;
-  padding: 8px 15px;
-  border-radius: 15px;
   color: white;
 }
