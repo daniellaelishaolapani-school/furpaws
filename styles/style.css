@@ -1,7 +1,4 @@
 
-/* don't modify na plz, io-optimize ko pa lang kasi siya tsaka naka-track na rin sa list ko mga aayusin ko :((
-   pls lmk muna kapag you think na may kailangang baguhin or alisin that i might've overlooked */
-
 @font-face {
       font-family: "Kdam Thmor Pro";
       src: url("../assets/fonts/Kdam Thmor Pro/KdamThmorPro-Regular.ttf") format("truetype");
@@ -63,7 +60,7 @@ body {
 .hero {
     position: relative;
     width: 100%;
-    height: calc(100vh + 20px);     /* para hindi kita 'yung blue box ng about us section kasi nakikita kapag wala 'to */
+    height: calc(100vh + 20px);
     overflow: hidden;
 }
 
@@ -72,7 +69,7 @@ body {
     inset: 0;
     width: 100%;
     height: 100%;
-    object-position: top;           /* para centered lang 'yung dog instead na nakataas and lagpas sa upper boundary ng page */
+    object-position: top;
     object-fit: cover;
     z-index: 0;
 }
