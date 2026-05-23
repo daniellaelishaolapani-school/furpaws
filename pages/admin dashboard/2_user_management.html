@@ -4,84 +4,83 @@
 <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Overview</title>
+      <title>User Management</title>
       <link rel="stylesheet" href="../../styles/admin-dashboard.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
 
-<header class="navbar">
-    <div class="logo">...</div>
+      <header class="header">
+      <div class="logo">[ LOGO HERE ]</div>
 
-    <nav>
-      <a href="pages/admin dashboard/1_overview.html" class="nav-link" >Overview</a>
-      <a href="pages/admin dashboard/2_user_management.html" class="nav-link active">User Management</a>
-      <a href="pages/admin dashboard/3_pet_records.html" class="nav-link" >Pet Records</a>
-    </nav>
-
-    <div class="admin-info">
-    <span class="admin">ADMIN<br><small>@ FurPaws</small></span>
-    <button class="logout" onclick="logout()">⏻</button>
-  </div>
+      <nav class="nav-bar">
+            <a href="/furpaws/pages/admin dashboard/1_overview.html" class="nav-link">OVERVIEW</a>
+            <a href="/furpaws/pages/admin dashboard/2_user_management.html" class="nav-link active">USER MANAGEMENT</a>
+            <a href="/furpaws/pages/admin dashboard/3_pet_records.html" class="nav-link">PET RECORDS</a>
+      </nav>
+            
+      <div class="admin-profile-wrapper">
+            <div class="profile-icon-mock"><i class="fa-solid fa-user"></i></div>
+            <div class="admin-info">
+                  <span class="role">ADMIN</span>
+                  <span class="orgname">@FURPAWS</span>
+            </div>
+            <button class="logout-btn">
+                  <i class="fa-solid fa-power-off"></i>
+            </button>
+      </div>
 </header>
+<div class="dashboard-container">
+
+    <h2>USER MANAGEMENT <span class="dots">● ● ●</span></h2>
 
   <main class="dashboard-usermng">
-
-      <h3>[SELECTED USER]</h3>
-        
     <section class="user-details">
-      <p><strong>User ID:</strong> <span id="userid"></span></p>
-      <p><strong>Email:</strong> <span id="useremail"></span></p>
-      <p><strong>Contact:</strong> <span id="usercontact"></span></p>
+        <h3>[SELECTED USER]</h3>
+        <p><strong>User ID:</strong> <span id="userid"></span></p>
+        <p><strong>Email:</strong> <span id="useremail"></span></p>
+        <p><strong>Contact:</strong> <span id="usercontact"></span></p>
 
-      <h3>PETS</h3>
-      <ul id="userpets"></ul>
+        <h3>PETS</h3>
+        <ul id="userpets"></ul>
 
-      <h4>REGISTRATION ID</h4>
-      <span id="petregid"></span></p>
-          <!--tama ba idea ko ng registration id?-->
-      <h4>STATUS</h4>
-      <span id="petstatus"></span></p>
-    </section>
+        <h4>REGISTRATION ID</h4>
+        <p><span id="petregid"></span></p> <h4>STATUS</h4>
+        <p><span id="petstatus"></span></p> </section>
         
-]    <section class="user-table">
+    <section class="user-table">
+        <div class="table-header-controls"> <div class="sort-dropdown">
+                <button class="sort-btn" id="sortbtn">Sort By: <span class="arrow">▼</span></button>
+                <ul class="dropdown-content" id="dropdownMenu">
+                    <li class="dropdown-item" data-value="name">Name</li>
+                    <li class="dropdown-item" data-value="userid">User ID</li>
+                </ul>
+            </div>
+            <div class="controls">
+                <input type="text" id="searchinput" placeholder="Search...">
+            </div>
+        </div>
 
-      <div class="sort-dropdown">
-  <button class="sort-btn" id="sortbtn">Sort By: <span class="arrow">▼</span>
-  </button>
-  
-  <ul class="dropdown-content" id="dropdownMenu">
-    <li class="dropdown-item" data-value="name">Name</li>
-    <li class="dropdown-item" data-value="userid">User ID</li>
-  </ul>
-</div>
-
-      <div class="controls">
-        <input type="text" id="searchinput" placeholder="Search">
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>User ID</th>
-            <th>Email</th>
-            <th>Contact</th>
-            <th># Pets</th>
-            <th>More</th>
-          </tr>
-        </thead>
-
-        <tbody id="userTableBody">
-              <!--wala pa-->
-        </tbody>
-      </table>
-
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>User ID</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th># Pets</th>
+                    <th>More</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                </tbody>
+        </table>
     </section>
-
-  </main>
+</main>
+    
+</div>
 
   <script src="../../scripts/admin-dashboard.js"></script>
 </body>
 </html>
-
