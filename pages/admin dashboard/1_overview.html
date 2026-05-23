@@ -6,68 +6,155 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Overview</title>
       <link rel="stylesheet" href="../../styles/admin-dashboard.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
 
 <header class="header">
-      <div class="logo">wala pa</div>
+      <div class="logo">[ LOGO HERE ]</div>
 
-          <nav class="nav-bar">
-            <a href="pages/admin dashboard/1_overview.html" class="nav-link active">Overview</a>
-            <a href="pages/admin dashboard/2_user_management.html" class="nav-link">User Management</a>
-            <a href="pages/admin dashboard/3_pet_records.html" class="nav-link" >Pet Records</a>
-          </nav>
-      
-    <div class="admin-info">
-    <span class="role">ADMIN</span>
-    <span class="orgname">@FURPAWS</span>
-  </div>
-
-      <button class="logout-btn">
-      <img src="../../assets/img/logoutbtn.jpg" alt="Log Out">
-    </button>
+      <nav class="nav-bar">
+            <a href="/furpaws/pages/admin dashboard/1_overview.html" class="nav-link active">OVERVIEW</a>
+            <a href="/furpaws/pages/admin dashboard/2_user_management.html" class="nav-link">USER MANAGEMENT</a>
+            <a href="/furpaws/pages/admin dashboard/3_pet_records.html" class="nav-link">PET RECORDS</a>
+      </nav>
+            
+      <div class="admin-profile-wrapper">
+            <div class="profile-icon-mock"><i class="fa-solid fa-user"></i></div>
+            <div class="admin-info">
+                  <span class="role">ADMIN</span>
+                  <span class="orgname">@FURPAWS</span>
+            </div>
+            <button class="logout-btn">
+                  <i class="fa-solid fa-power-off"></i>
+            </button>
+      </div>
 </header>
 
 <div class="dashboard-container">
 
-  <h2>ADMIN DASHBOARD ● ● ●</h2>
+  <h2>ADMIN DASHBOARD <span class="dots">● ● ●</span></h2>
 
   <div class="dashboard-grid">
-    <div class="card">
-      <h3>PET DEMOGRAPHICS</h3>
+    
+    <div class="left-column-wrapper" style="display: flex; flex-direction: column; gap: 24px; grid-column: 1;">
+        
+        <div class="card pet-demographics">
+          <h3>PET DEMOGRAPHICS</h3>
+          <div class="small-card-container">
+                
+                <div class="small-card">
+                      <h4>SPECIES</h4>
+                      <div class="split-content">
+                            <div class="stat-boxes">
+                                  <div class="stat-box">DOGS <span class="val" id="dog-count">num</span></div>
+                                  <div class="stat-box">CATS <span class="val" id="cat-count">num</span></div>
+                                  <div class="stat-box wide">OTHERS <span class="val" id="others-count">num</span></div>
+                            </div>
+                            <div class="donut-chart-mock">
+                                  <i class="fa-solid fa-circle-notch"></i>
+                                  <span class="pct">%</span>
+                            </div>
+                      </div>
+                </div>
 
-      <div class="small-card">Species Chart</div>
-      <div class="small-card">Age Group Chart</div>
-      <div class="small-card">Vaccination Status</div>
-      <div class="small-card">Neuter/Spay Status</div>
+                <div class="small-card detailed-graph-card">
+                      <div class="graph-text-side">
+                            <h4>VACCINATION STATUS</h4>
+                            <div class="chart-legend-container">
+                                  <div class="legend-row"><span class="legend-dot status-full"></span> Fully Vaccinated</div>
+                                  <div class="legend-row"><span class="legend-dot status-partial"></span> Partially Vaccinated</div>
+                                  <div class="legend-row"><span class="legend-dot status-none"></span> Not Vaccinated</div>
+                            </div>
+                      </div>
+                      <div class="graph-visual-box">
+                            <div class="bar-chart-mock">
+                                  <div class="bar-item"><div class="fill-bar vac-gradient-1"></div><span>DOGS</span></div>
+                                  <div class="bar-item"><div class="fill-bar vac-gradient-2"></div><span>CATS</span></div>
+                                  <div class="bar-item"><div class="fill-bar vac-gradient-3"></div><span>OTHERS</span></div>
+                            </div>
+                      </div>
+                </div>
+
+                <div class="small-card detailed-graph-card">
+                      <div class="graph-text-side">
+                            <h4>NEUTER/SPAY STATUS</h4>
+                            <div class="chart-legend-container">
+                                  <div class="legend-row"><span class="legend-dot status-neutered"></span> Neutered / Spayed</div>
+                                  <div class="legend-row"><span class="legend-dot status-intact"></span> Intact</div>
+                            </div>
+                      </div>
+                      <div class="graph-visual-box">
+                            <div class="bar-chart-mock">
+                                  <div class="bar-item"><div class="fill-bar neuter-gradient-1"></div><span>DOGS</span></div>
+                                  <div class="bar-item"><div class="fill-bar neuter-gradient-2"></div><span>CATS</span></div>
+                                  <div class="bar-item"><div class="fill-bar neuter-gradient-3"></div><span>OTHERS</span></div>
+                            </div>
+                      </div>
+                </div>
+
+          </div>
+        </div>
+
+        <div class="card summary">
+            <h3>PET REGISTRATION SUMMARY</h3>
+            <div class="summary-content-wrapper">
+
+                <div class="summary-graph-box">
+                    <div class="horizontal-chart-container">
+                        <div class="x-axis-scale">
+                            <span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span>
+                        </div>
+                        
+                        <div class="horizontal-chart-rows">
+                            <div class="chart-row-group">
+                                <label>NEW REGISTRATION</label>
+                                <div class="horizontal-bar summary-bar-new"></div>
+                                <span class="val" id="newreg-count">num</span>
+                            </div>
+                            
+                            <div class="chart-row-group">
+                                <label>RENEWAL APPLICATIONS</label>
+                                <div class="horizontal-bar summary-bar-renewal"></div>
+                                <span class="val" id="renewal-count">num</span>
+                            </div>
+                            
+                            <div class="chart-row-group">
+                                <label>OVERDUE REGISTRATIONS</label>
+                                <div class="horizontal-bar summary-bar-overdue"></div>
+                                <span class="val" id="overdue-count">num</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="paw-watermark"><i class="fa-solid fa-paw"></i></div>
+        </div>
+
     </div>
 
-    <div class="right-column">
-      <div class="card">
-        <h3>PENDING APPROVALS</h3>
-        <p>PA-001 | Pet Name</p>
-        <p>PA-002 | Pet Name</p>
+    <div class="right-column" style="grid-column: 2;">
+      <div class="card pending-approvals">
+        <div class="card-header-split">
+              <h3>PENDING APPROVALS</h3>
+              <a href="/furpaws/pages/admin dashboard/4_pending_approvals.html" class="see-more-btn">SEE MORE</a>
+        </div>
+        <ul class="data-list" id="pending-list">
+        </ul>
       </div>
 
-      <div class="card">
-        <h3>RENEWAL AND COMPLIANCE</h3>
-        <p>Active Registrations</p>
-        <p>Overdue Registrations</p>
+      <div class="card renewal-compliance">
+        <h3>OVERDUE REGISTRATION</h3>
+        <ul class="data-list" id="overdue-list">
+        </ul>
       </div>
-
     </div>
 
-  </div>
-
-  <div class="card summary">
-    <h3>PET REGISTRATION SUMMARY</h3>
   </div>
 
 </div>
 
-  </main>
-
-  <script src="scripts/admin-dashboard.js"></script>
+<script src="scripts/admin-dashboard.js"></script>
 </body>
 </html>
