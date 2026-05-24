@@ -132,12 +132,14 @@ main {
 .overview-container {
       display: grid;
       grid-template-columns: 1fr 680px;
-      grid-template-rows: 1fr 1fr auto;
+      grid-template-rows: 190px 190px 280px;
+      align-items: start;
       gap: 20px;
 }
 
 .overview-my-pets-grid {
-      min-height: 400px;
+      height: 400px;
+      max-height: 400px;
       grid-column: 1;
       grid-row: 1 / 3;
       border-radius: 20px;
@@ -168,21 +170,23 @@ main {
 }
 
 .upcoming-reminders-grid {
-      height: auto;
+      height: 190px;
       grid-column: 2;
       grid-row: 1;
       border-radius: 20px;
       padding: 30px 40px 30px 40px;
+      overflow: hidden;
       backdrop-filter: blur(4px);
       background-color: rgba(173, 218, 255, 0.6);
 }
 
 .recent-activities-grid {
-      height: auto;
+      height: 190px;
       grid-column: 2;
       grid-row: 2;
       border-radius: 20px;
       padding: 30px 40px 30px 40px;
+      overflow: hidden;
       backdrop-filter: blur(4px);
       background-color: rgba(173, 218, 255, 0.6);
 }
@@ -301,7 +305,7 @@ main {
 
 .pet-card {
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.6);
       cursor: pointer;
       overflow: hidden;
 }
@@ -312,7 +316,7 @@ main {
 
 .pet-card.active {
       background: rgba(255, 255, 255, 0.8);
-      outline: 2px solid #3894D9;
+      outline: 4px solid #3894D9;
 }
 
 .pet-card-photo {
@@ -334,11 +338,12 @@ main {
 
 .pet-card-name {
       color: #3894D9;
+      text-transform: uppercase;
 }
 
 .pet-card-age {
       color: #686868;
-      padding-bottom: 10px;
+      padding-bottom: 16px;
 }
 
 .my-pets-container {
@@ -348,11 +353,13 @@ main {
 }
 
 .my-pets-grid {
-      height: 100%;
+      height: 720px;
       align-self: center;
       border-radius: 20px;
-      margin-top: 62px;
+      margin-top: 30px;
       padding: 40px;
+      overflow-x: hidden;
+      overflow-y: auto;
       backdrop-filter: blur(4px);
       background-color: rgba(173, 218, 255, 0.9);
 }
@@ -370,6 +377,13 @@ main {
 .my-pets-grid-header hr {
       border-color: #FFFFFF;
       margin-top: 10px;
+}
+
+.my-pets-grid-cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      margin-top: 30px;
 }
 
 .pet-details-panel {
@@ -414,11 +428,19 @@ main {
 }
 
 .pet-details-info {
-      margin-top: 30px;
-      margin-bottom: 30px;
+      margin-top: 20px;
+      margin-bottom: 20px;
 }
 
-.detail-pet-notes {
+.pet-details-info p {
+      color: #3894D9;
+}
+
+.pet-details-info span {
+      color: #686868;
+}
+
+.more-about-your-pet {
       text-align: center;
 }
 
@@ -430,10 +452,10 @@ main {
 }
 
 .edit-profile-grid {
-      height: 100%;
+      height: 720px;
       align-self: center;
       border-radius: 20px;
-      margin-top: 62px;
+      margin-top: 30px;
       padding: 40px;
       backdrop-filter: blur(4px);
       background-color: rgba(173, 218, 255, 0.9);
@@ -586,6 +608,10 @@ main {
 
 .profile-summary p {
       color: #3894D9;
+}
+
+.profile-summary span {
+      color: #686868;
 }
 
 .panel-name {
