@@ -14,3 +14,7 @@ nagana na siya, ide-debug ko na lang slight :sob:
 i used localStorage pala para persistent lang 'yung data kahit mag-refresh or magpalipat-lipat ng page
 try mo pala gumawa ng user account then mag-sign in w gawa-gawang info kapag na-push ko bukas kung magw-work 'yung user db sa'yo hehe
 pa-add din pala ng logo sa assets files natin, thankuuu
+
+
+hindi pa siya debugged entirely
+debugging pa lang currently 'yung overview and my pets page kasi may ni-remove akong features

@@ -137,6 +137,7 @@ main {
 }
 
 .overview-my-pets-grid {
+      min-height: 400px;
       grid-column: 1;
       grid-row: 1 / 3;
       border-radius: 20px;
@@ -290,62 +291,54 @@ main {
 }
 
 .pet-name input {
-      width: 276px;
+      width: 340px;
 }
 
 .pet-sex select {
-      width: 128px;
+      width: 160px;
       height: 56px;
 }
 
-.input-with-document-upload {
-      display: flex;
-      align-items: center;
-      gap: 20px;
+.pet-card {
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      overflow: hidden;
 }
 
-.input-with-document-upload select {
-      height: 56px;
-      flex: 1;
+.pet-card:hover {
+      background: rgba(255, 255, 255, 0.8);
+}
+
+.pet-card.active {
+      background: rgba(255, 255, 255, 0.8);
+      outline: 2px solid #3894D9;
+}
+
+.pet-card-photo {
+      width: 220px;
+      height: 220px;
+      overflow: hidden;
+}
+
+.pet-card-photo img {
+      width: 80%;
+      height: 80%;
+      object-fit: cover;
+      margin: 24px;
+}
+
+.pet-card-name, .pet-card-age {
+      text-align: center;
+}
+
+.pet-card-name {
+      color: #3894D9;
+}
+
+.pet-card-age {
       color: #686868;
-      font-size: 16px;
-      outline: none;
-      border: none;
-      border-radius: 20px;
-      padding: 16px;
-      backdrop-filter: blur(4px);
-      background-color: rgba(255, 255, 255, 0.8);
-}
-
-.upload-document-button {
-      color: #FFFFFF;
-      font-size: 12px;
-      font-family: "Kdam Thmor Pro", sans-serif;
-      border: none;
-      border-radius: 20px;
-      padding: 8px;
-      cursor: pointer;
-      background-color: #A9A9A9;
-}
-
-.upload-document-button:hover {
-      background-color: #686868;
-}
-
-.upload-button {
-      align-self: flex-end;
-      color: #FFFFFF;
-      font-size: 12px;
-      font-family: "Kdam Thmor Pro", sans-serif;
-      border: none;
-      border-radius: 20px;
-      padding: 16px;
-      cursor: pointer;
-      background-color: #A9A9A9;
-}
-
-.upload-button:hover {
-      background-color: #686868;
+      padding-bottom: 10px;
 }
 
 .my-pets-container {
@@ -423,15 +416,6 @@ main {
 .pet-details-info {
       margin-top: 30px;
       margin-bottom: 30px;
-}
-
-.pet-details-info p {
-      color: #3894D9;
-      font-size: 16px;
-}
-
-.pet-details-info span {
-      color: #686868;
 }
 
 .detail-pet-notes {
