@@ -5,9 +5,6 @@ frontend development will be the death of me
 start na agad ako sa backend, it's so wraps
 
 
-admin dashboard 1-3 done, along w css (tho parang ang liit masyado ng texts T-T)
-kain muna 'ko tas js na tho check ko yung js ng user db mo since di ko na alam gagawin HAHAHA
-
 
 baka tomorrow morning ko pa ma-push 'yung js ng user-auth and user-db
 nagana na siya, ide-debug ko na lang slight :sob:
@@ -18,3 +15,6 @@ pa-add din pala ng logo sa assets files natin, thankuuu
 
 hindi pa siya debugged entirely
 debugging pa lang currently 'yung overview and my pets page kasi may ni-remove akong features
+
+
+oki pick na ku logo, tho baka itweak ko to fit the site better, thank u dani
