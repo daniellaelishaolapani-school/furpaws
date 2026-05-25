@@ -1,125 +1,136 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Pending Approvals</title>
+      <title>Overview</title>
       <link rel="stylesheet" href="../../styles/admin-dashboard.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
 
-      <script src="scripts/admin-dashboard.js"></script>
+<header class="header">
+      <div class="logo">[ LOGO HERE ]</div>
 
-<header class="navbar">
-    <div class="logo">...</div>
-
-    <nav>
-      <a href="pages/admin dashboard/1_overview.html">Overview</a>
-      <a href="pages/admin dashboard/2_user_management.html">User Management</a>
-      <a href="pages/admin dashboard/3_pet_records.html">Pet Records</a>
-    </nav>
-
-    <div class="admin-info">
-    <span class="admin">ADMIN<br><small>@ FurPaws</small></span>
-    <button class="logout" onclick="logout()">⏻</button>
-  </div>
+      <nav class="nav-bar">
+            <a href="/furpaws/pages/admin dashboard/1_overview.html" class="nav-link active">OVERVIEW</a>
+            <a href="/furpaws/pages/admin dashboard/2_user_management.html" class="nav-link">USER MANAGEMENT</a>
+            <a href="/furpaws/pages/admin dashboard/3_pet_records.html" class="nav-link">PET RECORDS</a>
+      </nav>
+            
+      <div class="admin-profile-wrapper">
+            <div class="profile-icon-mock"><i class="fa-solid fa-user"></i></div>
+            <div class="admin-info">
+                  <span class="role">ADMIN</span>
+                  <span class="orgname">@FURPAWS</span>
+            </div>
+            <button class="logout-btn">
+                  <i class="fa-solid fa-power-off"></i>
+            </button>
+      </div>
 </header>
 
-<div class="page-header">
-    <h2>ADMIN DASHBOARD &bull;&bull;&bull;</h2>
-    <span class="pending-badge">PENDING APPROVALS</span>
-  </div>
-
-  <div class="main-card">
-
-    <div class="tabs">
-      <button class="tab active" onclick="switchTab('new-reg', this)">New Registration</button>
-      <button class="tab" onclick="switchTab('for-renewal', this)">For Renewal</button>
-      <button class="tab" onclick="switchTab('pet-info', this)">Pet Information Update</button>
+<div class="dashboard-container">
+    <h2>PENDING APPROVALS <span class="dots">● ● ●</span></h2>
+      
+<div class="card" style="min-height: 800px;"> <div class="tabs">
+      <button class="tab-btn active" data-tab="new-registration">NEW REGISTRATION</button>
+      <button class="tab-btn" data-tab="for-renewal">FOR RENEWAL</button>
+      <button class="tab-btn" data-tab="pet-update">PET INFORMATION UPDATE</button>
     </div>
+  
 
-    <div id="new-reg" class="tab-content active">
-      <div class="table-wrapper">
+  <div class="panel-body">
+    
+    <div id="new-registration" class="tab-content active">
+      <div class="table-container" style="min-height: 700px;">
         <table>
           <thead>
             <tr>
               <th>DATE</th>
               <th>OWNER'S USER ID</th>
-              <th>SNAPSHOT</th>
               <th>NAME</th>
               <th>M/F</th>
               <th>SPECIES</th>
               <th>BREED</th>
               <th>BIRTHDAY</th>
               <th>AGE</th>
-              <th>NOTES</th>
-              <th>MEDICAL RECORDS</th>
-              <th colspan="2"></th>
+              <th></th>
             </tr>
-          </thead>
-          <tbody id="new-reg-body"></tbody>
-        </table>
-      </div>
-    </div>
+          </thead>   
+          <tbody id="new-registration-tbody"></tbody>
+    </table>
+  </div>
+</div>
 
     <div id="for-renewal" class="tab-content">
-      <div class="table-wrapper">
+      <div class="table-container" style="min-height: 700px;">
         <table>
           <thead>
             <tr>
               <th>DATE</th>
               <th>OWNER'S USER ID</th>
-              <th>SNAPSHOT</th>
               <th>NAME</th>
               <th>M/F</th>
               <th>SPECIES</th>
               <th>BREED</th>
               <th>BIRTHDAY</th>
               <th>AGE</th>
-              <th>NOTES</th>
-              <th>MEDICAL RECORDS</th>
-              <th colspan="2"></th>
+              <th></th>
             </tr>
-          </thead>
-          <tbody id="for-renewal-body"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div id="pet-info" class="tab-content">
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>DATE</th>
-              <th>OWNER'S USER ID</th>
-              <th>SNAPSHOT</th>
-              <th>NAME</th>
-              <th>M/F</th>
-              <th>SPECIES</th>
-              <th>BREED</th>
-              <th>BIRTHDAY</th>
-              <th>AGE</th>
-              <th>NOTES</th>
-              <th>MEDICAL RECORDS</th>
-              <th colspan="2"></th>
-            </tr>
-          </thead>
-          <tbody id="pet-info-body"></tbody>
-        </table>
-      </div>
-    </div>
+          </thead>   
+          <tbody id="for-renewal-tbody"></tbody>
+    </table>
   </div>
+</div>
+
+    <div id="pet-update" class="tab-content">
+      <div class="table-container" style="min-height: 700px;">
+        <table>
+          <thead>
+            <tr>
+              <th>DATE</th>
+              <th>OWNER'S USER ID</th>
+              <th>NAME</th>
+              <th>M/F</th>
+              <th>SPECIES</th>
+              <th>BREED</th>
+              <th>BIRTHDAY</th>
+              <th>AGE</th>
+              <th></th>
+            </tr>
+          </thead>   
+          <tbody id="pet-update-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+  </div> 
+</div> 
+</div>
+
 
 <script>
-function logout() {
-  window.location.href = "../index.html";
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
 
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+      
+      button.classList.add('active');
+      const targetId = button.getAttribute('data-tab');
+      document.getElementById(targetId).classList.add('active');
+    });
+  });
+});
 </script>
 
+<script src="../../scripts/admin-dashboard.js"></script>
+      
 </body>
-</html>
+</html
