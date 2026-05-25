@@ -1,262 +1,419 @@
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
 if (!currentUser || currentUser.role !== "admin") {
-    window.location.href = "../../pages/user authorization/2_sign_in_admin_account.html";
+      window.location.href = "../../pages/user authorization/2_sign_in_admin_account.html";
 }
 
+
 function getPets() {
-    return JSON.parse(localStorage.getItem("pets")) || [];
+      return JSON.parse(localStorage.getItem("pets")) || [];
 }
 
 function savePets(pets) {
-    localStorage.setItem("pets", JSON.stringify(pets));
+      localStorage.setItem("pets", JSON.stringify(pets));
 }
 
 function getUsers() {
-    return JSON.parse(localStorage.getItem("users")) || [];
+      return JSON.parse(localStorage.getItem("users")) || [];
 }
+
+function setupHeader() {
+      const logoutBtn = document.querySelector(".logout-btn") || document.querySelector(".dashboard-navbar-logout");
+      if (logoutBtn) {
+            logoutBtn.addEventListener("click", function () {
+                  localStorage.removeItem("currentUser");
+                  window.location.href = "../../pages/user authorization/2_sign_in_admin_account.html";
+            });
+      }
+}
+setupHeader();
+
+
 
 const path = window.location.pathname;
+const isOverview = path.includes("1_overview.html");
+const isUserMng = path.includes("2_user_management.html");
+const isPetRecords = path.includes("3_pet_records.html");
+const isPendingPage = path.includes("4_pending_approvals.html");
 
-const overviewPage = path.includes("1_overview.html");
-const userPage = path.includes("2_user_management.html");
-const petPage = path.includes("3_pet_records.html");
-
-if (overviewPage) {
-    const pets = getPets();
-
-    let dogs = 0, cats = 0, others = 0;
-
-    pets.forEach(p => {
-        const s = p.species.toLowerCase();
-        if (s.includes("dog")) dogs++;
-        else if (s.includes("cat")) cats++;
-        else others++;
-    });
-
-    document.getElementById("dog-count").textContent = dogs;
-    document.getElementById("cat-count").textContent = cats;
-    document.getElementById("others-count").textContent = others;
-
-  const pendingList = document.getElementById("pending-list");
-
-    const pendingPets = pets.filter(p => p.registrationStatus === "Pending");
-
-    pendingList.innerHTML = "";
-
-    pendingPets.slice(0, 5).forEach(p => {
-        const li = document.createElement("li");
-        li.textContent = `${p.name} (${p.species}) - ${p.registrationID}`;
-        pendingList.appendChild(li);
-    });
-
-  const overdueList = document.getElementById("overdue-list");
-
-    const now = new Date();
-
-    const overduePets = pets.filter(p => {
-        const regDate = new Date(p.registeredAt);
-        regDate.setFullYear(regDate.getFullYear() + 1);
-        return regDate < now;
-    });
-
-    overdueList.innerHTML = "";
-
-    overduePets.slice(0, 5).forEach(p => {
-        const li = document.createElement("li");
-        li.textContent = `${p.name} - OVERDUE`;
-        overdueList.appendChild(li);
-    });
+function isRegistrationOverdue(registeredAtStr) {
+      if (!registeredAtStr) return false;
+      const registeredDate = new Date(registeredAtStr);
+      const expirationDate = new Date(registeredDate);
+      expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+      return new Date() > expirationDate;
 }
 
-if (userPage) {
-    const users = getUsers();
-    const pets = getPets();
 
-    const tbody = document.getElementById("userTableBody");
+if (isOverview) {
+    function renderDashboardCharts() {
+        const pets = getPets();
+        const users = getUsers();
 
-    tbody.innerHTML = "";
+        const dogCount = pets.filter(p => (p.species || "").toLowerCase() === 'dog').length;
+        const catCount = pets.filter(p => (p.species || "").toLowerCase() === 'cat').length;
+        const otherCount = pets.filter(p => (p.species || "").toLowerCase() === 'other').length;
 
-    users.forEach(user => {
-        const userPets = pets.filter(p => p.ownerID === user.userID);
+        if(document.getElementById('dog-count')) document.getElementById('dog-count').textContent = dogCount;
+        if(document.getElementById('cat-count')) document.getElementById('cat-count').textContent = catCount;
+        if(document.getElementById('others-count')) document.getElementById('others-count').textContent = otherCount;
 
-        const tr = document.createElement("tr");
-
-        tr.innerHTML = `
-            <td>${user.lastName}, ${user.firstName}</td>
-            <td>${user.userID}</td>
-            <td>${user.email}</td>
-            <td>${user.contactNumber || ""}</td>
-            <td>${userPets.length}</td>
-            <td><button onclick="selectUser('${user.userID}')">View</button></td>
-        `;
-
-        tbody.appendChild(tr);
-    });
-
-    window.selectUser = function(userID) {
-        const user = users.find(u => u.userID === userID);
-        const userPets = pets.filter(p => p.ownerID === userID);
-
-        document.getElementById("userid").textContent = user.userID;
-        document.getElementById("useremail").textContent = user.email;
-        document.getElementById("usercontact").textContent = user.contactNumber;
-
-        const petList = document.getElementById("userpets");
-        petList.innerHTML = "";
-
-        userPets.forEach(p => {
-            const li = document.createElement("li");
-            li.textContent = `${p.name} (${p.registrationStatus})`;
-            petList.appendChild(li);
-        });
-
-        if (userPets[0]) {
-            document.getElementById("petregid").textContent = userPets[0].registrationID;
-            document.getElementById("petstatus").textContent = userPets[0].registrationStatus;
+        const pendingList = document.getElementById("pending-list");
+        if (pendingList) {
+            const pending = pets.filter(p => p.registrationStatus === "Pending");
+            pendingList.innerHTML = pending.length > 0 
+                ? pending.slice(0, 4).map(p => `<li>${p.name || "Unknown"} — ${p.registrationID || "No ID"}</li>`).join('') 
+                : "<li>No pending approvals.</li>";
         }
-    };
-}
 
-if (petPage) {
-    const pets = getPets();
+        const overdueList = document.getElementById("overdue-list");
+        if (overdueList) {
+            const overdue = pets.filter(p => p.registrationStatus === "Approved" && isRegistrationOverdue(p.registeredAt));
+            overdueList.innerHTML = overdue.length > 0 
+                ? overdue.slice(0, 4).map(p => `<li>${p.name || "Unknown"} — ${p.registrationID || "No ID"}</li>`).join('') 
+                : "<li>No overdue registrations.</li>";
+        }
 
-    const tbody = document.getElementById("petTableBody");
-
-    tbody.innerHTML = "";
-
-    pets.forEach(p => {
-        const tr = document.createElement("tr");
-
-        tr.innerHTML = `
-            <td>${p.ownerID}</td>
-            <td>${p.registrationID}</td>
-            <td>${p.name}</td>
-            <td>${p.species}</td>
-            <td>${p.registrationStatus}</td>
-            <td>
-                <button onclick="viewPet('${p.petID}')">View</button>
-                <button onclick="approvePet('${p.petID}')">Approve</button>
-                <button onclick="deletePet('${p.petID}')">Delete</button>
-            </td>
-        `;
-
-        tbody.appendChild(tr);
-    });
-
-    window.viewPet = function(petID) {
-        const pet = pets.find(p => p.petID === petID);
-
-        document.getElementById("petage").textContent = pet.age;
-        document.getElementById("petspecies").textContent = pet.species;
-        document.getElementById("petbreed").textContent = pet.breed;
-        document.getElementById("petbirthday").textContent = pet.birthday;
-
-        document.getElementById("petregid").textContent = pet.registrationID;
-        document.getElementById("petstatus").textContent = pet.registrationStatus;
-        document.getElementById("petnotes").textContent = pet.notes;
-
-        document.getElementById("petmedical").textContent = pet.vaccinated;
-        document.getElementById("petmore").textContent = pet.neutered;
-    };
-
-  window.approvePet = function(petID) {
-        const updated = pets.map(p => {
-            if (p.petID === petID) {
-                p.registrationStatus = "Approved";
+        const updateBar = (className, species) => {
+            const bar = document.querySelector(className);
+            if (bar) {
+                const petsOfSpecies = pets.filter(p => (p.species || "").toLowerCase() === species.toLowerCase());
+                const total = petsOfSpecies.length || 0;
+                const count = petsOfSpecies.filter(p => (p.vaccinated || "").toLowerCase() === "yes").length;
+                const pct = total > 0 ? (count / total) * 100 : 0;
+                bar.style.height = `${pct}%`;
+                bar.textContent = count > 0 ? count : "";
             }
-            return p;
-        });
+        };
 
-        savePets(updated);
-        alert("Pet approved!");
-        location.reload();
-    };
-
-    window.deletePet = function(petID) {
-        if (!confirm("Delete this pet?")) return;
-
-        const updated = pets.filter(p => p.petID !== petID);
-        savePets(updated);
-
-        alert("Pet deleted!");
-        location.reload();
-    };
-}
-
-const logoutBtn = document.querySelector(".logout-btn");
-
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("currentUser");
-        window.location.href = "../../pages/user authorization/2_sign_in_admin_account.html";
-    });
-}
-
-
-/* PENDING APPROVAL JS */
-
-<script>
-  
-  function logout() {
-    window.location.href = "../index.html";
-  }
-  const data = {
-    "new-reg": [
-      { date: "MM-DD-YYYY", uid: "UID", name: "PET'S NAME", mf: "F", species: "CAT", breed: "PET'S BREED", birthday: "N/A", age: 1 },
-      { date: "MM-DD-YYYY", uid: "UID", name: "PET'S NAME", mf: "M", species: "DOG", breed: "PET'S BREED", birthday: "N/A", age: 2 },
-    ],
-    "for-renewal": [
-      { date: "MM-DD-YYYY", uid: "UID", name: "PET'S NAME", mf: "F", species: "CAT", breed: "PET'S BREED", birthday: "N/A", age: 1 },
-      { date: "MM-DD-YYYY", uid: "UID", name: "PET'S NAME", mf: "M", species: "DOG", breed: "PET'S BREED", birthday: "N/A", age: 2 },
-    ],
-    "pet-info": [
-      { date: "MM-DD-YYYY", uid: "UID", name: "PET'S NAME", mf: "F", species: "CAT", breed: "PET'S BREED", birthday: "N/A", age: 1 },
-      { date: "MM-DD-YYYY", uid: "UID", name: "PET'S NAME", mf: "M", species: "DOG", breed: "PET'S BREED", birthday: "N/A", age: 2 },
-    ]
-  };
-
-  function renderRows(tabId) {
-    const tbody = document.getElementById(tabId + "-body");
-    const rows = data[tabId];
-    tbody.innerHTML = rows.map((pet, index) => `
-      <tr>
-        <td>${pet.date}</td>
-        <td>${pet.uid}</td>
-        <td><span class="view-link">VIEW</span></td>
-        <td>${pet.name}</td>
-        <td>${pet.mf}</td>
-        <td>${pet.species}</td>
-        <td>${pet.breed}</td>
-        <td>${pet.birthday}</td>
-        <td>${pet.age}</td>
-        <td><span class="view-link">VIEW</span></td>
-        <td><span class="view-link">VIEW</span></td>
-        <td><button class="btn-reject" onclick="handleAction('${tabId}', ${index}, 'reject')">REJECT</button></td>
-        <td><button class="btn-approve" onclick="handleAction('${tabId}', ${index}, 'approve')">APPROVE</button></td>
-      </tr>
-    `).join("");
-  }
-
-  function handleAction(tabId, index, action) {
-    const pet = data[tabId][index];
-    if (action === "approve") {
-      alert(`Approved: ${pet.name} (${pet.species})`);
-    } else {
-      alert(`Rejected: ${pet.name} (${pet.species})`);
+        updateBar(".vac-gradient-1", "dog");
+        updateBar(".vac-gradient-2", "cat");
+        updateBar(".vac-gradient-3", "other");
     }
-    data[tabId].splice(index, 1);
-    renderRows(tabId);
-  }
-  
-  function switchTab(id, clickedTab) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    clickedTab.classList.add('active');
-  }
 
-  renderRows("new-reg");
-  renderRows("for-renewal");
-  renderRows("pet-info");
-</script>
+    document.addEventListener("DOMContentLoaded", () => {
+        renderDashboardCharts();
+    });
+
+    window.addEventListener('petsUpdated', renderDashboardCharts);
+}
+
+if (isUserMng) {
+      let currentSort = "name"; 
+      const searchInput = document.getElementById("searchinput");
+      const userTableBody = document.getElementById("userTableBody");
+      const dropdownMenu = document.getElementById("dropdownMenu");
+      const sortBtn = document.getElementById("sortbtn");
+
+      if (sortBtn && dropdownMenu) {
+            sortBtn.addEventListener("click", () => dropdownMenu.classList.toggle("show"));
+            window.addEventListener("click", (e) => {
+                  if (!sortBtn.contains(e.target)) dropdownMenu.classList.remove("show");
+            });
+      }
+
+      function renderUserTable() {
+            if (!userTableBody) return;
+            userTableBody.innerHTML = "";
+
+            const users = getUsers().filter(u => u.role === "user");
+            const pets = getPets();
+            const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+
+            let filteredUsers = users.filter(u => {
+                  const fullName = `${u.firstName || ""} ${u.lastName || ""}`.toLowerCase();
+                  return fullName.includes(query) || 
+                         (u.userID || "").toLowerCase().includes(query) || 
+                         (u.email || "").toLowerCase().includes(query);
+            });
+
+            if (currentSort === "name") {
+                  filteredUsers.sort((a, b) => (a.lastName || "").localeCompare(b.lastName || ""));
+            } else if (currentSort === "userid") {
+                  filteredUsers.sort((a, b) => (a.userID || "").localeCompare(b.userID || ""));
+            }
+
+            if (filteredUsers.length === 0) {
+                  userTableBody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #fff; padding: 20px;">No users found.</td></tr>`;
+                  return;
+            }
+
+            filteredUsers.forEach(user => {
+                  const userPets = pets.filter(p => p.ownerID === user.userID);
+                  const tr = document.createElement("tr");
+
+                  const middleInitial = user.middleInitial ? ` ${user.middleInitial}.` : "";
+                  const formattedName = `${(user.lastName || "").toUpperCase()}, ${(user.firstName || "").toUpperCase()}${middleInitial.toUpperCase()}`;
+
+                  tr.innerHTML = `
+                        <td>${formattedName}</td>
+                        <td>${user.userID || "—"}</td>
+                        <td>${user.email || "—"}</td>
+                        <td>${user.contactNumber || "—"}</td>
+                        <td style="text-align: center;">${userPets.length}</td>
+                        <td><button class="view-user-btn" data-id="${user.userID}" style="cursor:pointer; background: transparent; color:#a3e635; border:none; text-decoration: underline; font-weight: bold; font-family: inherit;">VIEW</button></td>
+                  `;
+                  userTableBody.appendChild(tr);
+            });
+
+            userTableBody.querySelectorAll(".view-user-btn").forEach(btn => {
+                  btn.addEventListener("click", function() {
+                        populateUserSidebar(this.dataset.id);
+                  });
+            });
+      }
+
+      function populateUserSidebar(userID) {
+            const user = getUsers().find(u => u.userID === userID);
+            if (!user) return;
+
+            const pets = getPets().filter(p => p.ownerID === userID);
+            
+            const sideHeader = document.querySelector(".user-details h3");
+            if (sideHeader) {
+                  const middleInitial = user.middleInitial ? ` ${user.middleInitial}.` : "";
+                  sideHeader.textContent = `${(user.lastName || "").toUpperCase()}, ${(user.firstName || "").toUpperCase()}${middleInitial.toUpperCase()}`;
+            }
+
+            if (document.getElementById("userid")) document.getElementById("userid").textContent = user.userID || "—";
+            if (document.getElementById("useremail")) document.getElementById("useremail").textContent = user.email || "—";
+            if (document.getElementById("usercontact")) document.getElementById("usercontact").textContent = user.contactNumber || "—";
+
+            const userPetsUl = document.getElementById("userpets");
+            if (userPetsUl) {
+                  userPetsUl.innerHTML = "";
+                  
+                  if (document.getElementById("petregid")) document.getElementById("petregid").textContent = "—";
+                  if (document.getElementById("petstatus")) document.getElementById("petstatus").textContent = "—";
+
+                  if (pets.length === 0) {
+                        const li = document.createElement("li");
+                        li.textContent = "No registered pets found.";
+                        li.style.color = "#bbb";
+                        userPetsUl.appendChild(li);
+                  } else {
+                        pets.forEach((pet, index) => {
+                              const li = document.createElement("li");
+                              li.textContent = pet.name;
+                              li.style.cursor = "pointer";
+                              li.style.textDecoration = "underline";
+                              li.style.color = "#a3e635";
+                              li.style.marginBottom = "4px";
+                              
+                              li.addEventListener("click", () => {
+                                    if (document.getElementById("petregid")) document.getElementById("petregid").textContent = pet.registrationID || "—";
+                                    if (document.getElementById("petstatus")) document.getElementById("petstatus").textContent = pet.registrationStatus || "—";
+                              });
+                              
+                              userPetsUl.appendChild(li);
+
+                              if (index === 0) {
+                                    if (document.getElementById("petregid")) document.getElementById("petregid").textContent = pet.registrationID || "—";
+                                    if (document.getElementById("petstatus")) document.getElementById("petstatus").textContent = pet.registrationStatus || "—";
+                              }
+                        });
+                  }
+            }
+      }
+
+      if (dropdownMenu) {
+            dropdownMenu.querySelectorAll(".dropdown-item").forEach(item => {
+                  item.addEventListener("click", function() {
+                        currentSort = this.dataset.value;
+                        if (sortBtn) sortBtn.innerHTML = `Sort By: ${this.textContent} <span class="arrow">▼</span>`;
+                        dropdownMenu.classList.remove("show");
+                        renderUserTable();
+                  });
+            });
+      }
+
+      if (searchInput) {
+            searchInput.addEventListener("input", renderUserTable);
+      }
+
+      renderUserTable();
+}
+
+
+if (isPetRecords) {
+      let currentSort = "name";
+      const searchInput = document.getElementById("searchinput");
+      const petTableBody = document.getElementById("petTableBody");
+      const dropdownMenu = document.getElementById("dropdownMenu");
+      const sortBtn = document.getElementById("sortbtn");
+
+      if (sortBtn && dropdownMenu) {
+            sortBtn.addEventListener("click", () => dropdownMenu.classList.toggle("show"));
+            window.addEventListener("click", (e) => {
+                  if (!sortBtn.contains(e.target)) dropdownMenu.classList.remove("show");
+            });
+      }
+
+      function renderPetTable() {
+            if (!petTableBody) return;
+            petTableBody.innerHTML = "";
+
+            const pets = getPets();
+            const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+
+            let filteredPets = pets.filter(p => {
+                  return (p.name || "").toLowerCase().includes(query) || 
+                         (p.registrationID || "").toLowerCase().includes(query) || 
+                         (p.ownerID || "").toLowerCase().includes(query) || 
+                         (p.species || "").toLowerCase().includes(query);
+            });
+
+            if (currentSort === "name") {
+                  filteredPets.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+            } else if (currentSort === "regid") {
+                  filteredPets.sort((a, b) => (a.registrationID || "").localeCompare(b.registrationID || ""));
+            }
+
+            if (filteredPets.length === 0) {
+                  petTableBody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #fff; padding: 20px;">No pets found.</td></tr>`;
+                  return;
+            }
+
+            filteredPets.forEach(pet => {
+                  const tr = document.createElement("tr");
+                  
+                  tr.innerHTML = `
+                        <td>${pet.ownerID || "—"}</td>
+                        <td>${pet.registrationID || "—"}</td>
+                        <td><strong>${pet.name || "Un-named"}</strong></td>
+                        <td>${pet.species || "—"}</td>
+                        <td><span class="status-badge ${(pet.registrationStatus || "pending").toLowerCase()}">${pet.registrationStatus || "Pending"}</span></td>
+                        <td><button class="view-pet-btn" data-id="${pet.petID}" style="cursor:pointer; background: transparent; color:#a3e635; border:none; text-decoration: underline; font-weight: bold; font-family: inherit;">VIEW</button></td>
+                  `;
+                  petTableBody.appendChild(tr);
+            });
+
+            petTableBody.querySelectorAll(".view-pet-btn").forEach(btn => {
+                  btn.addEventListener("click", function() {
+                        populatePetSidebar(this.dataset.id);
+                  });
+            });
+      }
+
+      function populatePetSidebar(petID) {
+            const pet = getPets().find(p => p.petID === petID);
+            if (!pet) return;
+
+            const sideHeader = document.querySelector(".pet-details h3");
+            if (sideHeader) {
+                  const genderLabel = (pet.sex || "—").toUpperCase();
+                  sideHeader.textContent = `${pet.name ? pet.name.toUpperCase() : "UN-NAMED"} | ${genderLabel}`;
+            }
+
+            if (document.getElementById("petage")) document.getElementById("petage").textContent = pet.age || "—";
+            if (document.getElementById("petspecies")) document.getElementById("petspecies").textContent = pet.species || "—";
+            if (document.getElementById("petbreed")) document.getElementById("petbreed").textContent = pet.breed || "—";
+            if (document.getElementById("petbirthday")) document.getElementById("petbirthday").textContent = pet.birthday || "—";
+            if (document.getElementById("petregid")) document.getElementById("petregid").textContent = pet.registrationID || "—";
+            if (document.getElementById("petstatus")) document.getElementById("petstatus").textContent = pet.registrationStatus || "—";
+            if (document.getElementById("petnotes")) document.getElementById("petnotes").textContent = pet.notes || "—";
+            
+            if (document.getElementById("petmedical")) {
+                  document.getElementById("petmedical").textContent = pet.vaccinated ? `Vaccinated: ${pet.vaccinated.toUpperCase()}` : "—";
+            }
+            if (document.getElementById("petmore")) {
+                  document.getElementById("petmore").textContent = pet.neuteredOrSpayed ? `Spayed/Neutered: ${pet.neuteredOrSpayed.toUpperCase()}` : "—";
+            }
+      }
+
+      if (dropdownMenu) {
+            dropdownMenu.querySelectorAll(".dropdown-item").forEach(item => {
+                  item.addEventListener("click", function() {
+                        currentSort = this.dataset.value;
+                        if (sortBtn) sortBtn.innerHTML = `Sort By: ${this.textContent} <span class="arrow">▼</span>`;
+                        dropdownMenu.classList.remove("show");
+                        renderPetTable();
+                  });
+            });
+      }
+
+      if (searchInput) {
+            searchInput.addEventListener("input", renderPetTable);
+      }
+
+      renderPetTable();
+}
+
+if (isPendingPage) {
+      function renderPendingQueues() {
+            const pets = getPets();
+
+            const newRegBody = document.getElementById("new-registration-tbody") || document.querySelector("table tbody");
+            const renewalBody = document.getElementById("for-renewal-tbody");
+            const updateBody = document.getElementById("pet-update-tbody");
+
+            const pendingNew = pets.filter(p => p.registrationStatus === "Pending");
+            const pendingRenewals = pets.filter(p => p.registrationStatus === "Approved" && isRegistrationOverdue(p.registeredAt));
+            const approvedUpdates = pets.filter(p => p.registrationStatus === "Approved" && !isRegistrationOverdue(p.registeredAt));
+            
+            if (newRegBody) buildTableRows(newRegBody, pendingNew, "new");
+            if (renewalBody) buildTableRows(renewalBody, pendingRenewals, "renewal");
+            if (updateBody) buildTableRows(updateBody, approvedUpdates, "update");
+      }
+
+      function buildTableRows(tbodyElement, petArray, currentTabType) {
+            tbodyElement.innerHTML = "";
+            const columnCount = tbodyElement.closest('table')?.querySelectorAll('thead th').length || 9;
+
+            if (petArray.length === 0) {
+                  tbodyElement.innerHTML = `<tr><td colspan="${columnCount}" style="text-align: center; color: #fff; padding: 20px;">No records found in this category.</td></tr>`;
+                  return;
+            }
+
+            petArray.forEach(pet => {
+                  const tr = document.createElement("tr");
+                  const dateFormatted = pet.registeredAt ? new Date(pet.registeredAt).toLocaleDateString() : "MM-DD-YYYY";
+                  const genderChar = (pet.sex || "F").toUpperCase().charAt(0);
+
+                  tr.innerHTML = `
+                        <td>${dateFormatted}</td>
+                        <td>${pet.ownerID || "—"}</td>
+                        <td><strong>${pet.name || "—"}</strong></td>
+                        <td>${genderChar}</td>
+                        <td>${pet.species || "—"}</td>
+                        <td>${pet.breed || "—"}</td>
+                        <td>${pet.birthday || "N/A"}</td>
+                        <td>${pet.age || "—"}</td>
+                        <td>
+                              <button class="reject-action-btn" data-id="${pet.petID}" style="background: #ef4444; color: #fff; border:none; padding: 6px 12px; border-radius:4px; cursor:pointer; font-weight:bold; margin-right:6px; font-family: inherit;">REJECT</button>
+                              ${currentTabType !== "update" ? `<button class="approve-action-btn" data-id="${pet.petID}" style="background: #22c55e; color: #fff; border:none; padding: 6px 12px; border-radius:4px; cursor:pointer; font-weight:bold; font-family: inherit;">APPROVE</button>` : ''}
+                        </td>
+                  `;
+                  tbodyElement.appendChild(tr);
+            });
+
+            tbodyElement.querySelectorAll(".approve-action-btn").forEach(btn => {
+                  btn.addEventListener("click", function() {
+                        processApplication(this.dataset.id, "Approved", currentTabType === "renewal");
+                  });
+            });
+
+            tbodyElement.querySelectorAll(".reject-action-btn").forEach(btn => {
+                  btn.addEventListener("click", function() {
+                        processApplication(this.dataset.id, "Rejected", currentTabType === "renewal");
+                  });
+            });
+      }
+
+      function processApplication(petID, decision, isRenewalContext) {
+            let pets = getPets();
+            const index = pets.findIndex(p => p.petID === petID);
+
+            if (index !== -1) {
+                  if (confirm(`Are you sure you want to mark this pet item as ${decision.toUpperCase()}?`)) {
+                        pets[index].registrationStatus = decision;
+                        if (decision === "Approved" && isRenewalContext) {
+                              pets[index].registeredAt = new Date().toISOString();
+                        }
+                        savePets(pets);
+                        renderPendingQueues();
+                  }
+            }
+      }
+
+      renderPendingQueues();
+}
