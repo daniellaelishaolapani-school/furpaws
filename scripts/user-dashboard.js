@@ -155,22 +155,20 @@ if (overviewPage) {
       }
 
       function submitPetRegistration() {
-            const row1Inputs = registerForm.querySelectorAll(".register-pet-form-row:first-child input");
-            const row1Selects = registerForm.querySelectorAll(".register-pet-form-row:first-child select");
-            const row2Inputs = registerForm.querySelectorAll(".register-pet-form-row:last-child input");
-            const row2Selects = registerForm.querySelectorAll(".register-pet-form-row:last-child select");
- 
-            const name = row1Inputs[0]?.value.trim() || "";
-            const sex = row1Selects[0]?.value || "";
-            const species = row1Inputs[1]?.value.trim() || "";
-            const breed = row1Inputs[2]?.value.trim() || "";
-            const notes = row1Inputs[3]?.value.trim() || "";
- 
-            const birthday = row2Inputs[0]?.value.trim() || "";
-            const age = row2Inputs[1]?.value.trim() || "";
-            const vaccinated = row2Selects[0]?.value || "";
-            const neuteredOrSpayed = row2Selects[1]?.value || "";
- 
+            const allInputs = registerForm.querySelectorAll("input");
+            const allSelects = registerForm.querySelectorAll("select");
+
+            const name = allInputs[0]?.value.trim() || "";
+            const species = allSelects[1]?.value || "";
+            const breed = allInputs[1]?.value.trim() || "";
+            const notes = allInputs[2]?.value.trim() || "";
+            const birthday = allInputs[3]?.value.trim() || "";
+            const age = allInputs[4]?.value.trim() || "";
+
+            const sex = allSelects[0]?.value || "";
+            const vaccinated = allSelects[2]?.value || "";
+            const neuteredOrSpayed = allSelects[3]?.value || "";
+
             if (!name || !sex || !species || !breed) {
                   alert("Please fill in all required fields.");
                   return;
