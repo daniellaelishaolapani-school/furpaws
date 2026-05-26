@@ -3,7 +3,6 @@ if (!currentUser || currentUser.role !== "admin") {
       window.location.href = "../../pages/user authorization/2_sign_in_admin_account.html";
 }
 
-
 function getPets() {
       return JSON.parse(localStorage.getItem("pets")) || [];
 }
@@ -26,8 +25,6 @@ function setupHeader() {
       }
 }
 setupHeader();
-
-
 
 const path = window.location.pathname;
 const isOverview = path.includes("1_overview.html");

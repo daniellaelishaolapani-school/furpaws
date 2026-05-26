@@ -15,11 +15,13 @@ function generateUserID(prefix, array, idField) {
 const adminAccounts = [
       {
             userID: "A-001",
+            role: "admin",
             email: "admin1@furpaws.com",
             password: "admin1_password",
       },
       {
             userID: "A-002",
+            role: "admin",
             email: "admin2@furpaws.com",
             password: "admin2_password",            
       }
