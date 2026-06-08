@@ -29,7 +29,7 @@ body {
 }
 
 .sign-up-logo img {
-      width: 100px;
+      width: 140px;
 }
 
 .sign-up-card {
@@ -152,7 +152,7 @@ body:has(.sign-in-card) {
 }
 
 .sign-in-logo img {
-      width: 100px;
+      width: 140px;
 }
 
 .sign-in-card {
